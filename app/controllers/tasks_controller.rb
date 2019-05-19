@@ -35,9 +35,18 @@
       redirect_to tasks_path
     end
     
+    #パラメータでIDを渡す。button_to
+    def get_started_day
+      @task = Task.find(params[:id])
+      @task.started_at  = Time.new
+      @task.save
+      redirect_to tasks_path
+    end
+    
+    
     
     private
       def task_params
-       params.require(:task).permit(:title, :description)
+       params.require(:task).permit(:title, :description, :planned_finished_at, :priority)
       end
   end
