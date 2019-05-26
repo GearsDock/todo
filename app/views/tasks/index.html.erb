@@ -6,9 +6,10 @@
         <th>開始</th>
         <th>作業開始日</th>
         <th>作業終了予定日</th>
-        <th>作業終了日</th>
         <th>優先度</th>
         <th>ステータス</th>
+        <th>終了</th>
+        <th>作業終了日</th>
         <th></th>
         <th></th>
         <th></th>
@@ -18,12 +19,13 @@
       <% @tasks.each do |task| %>
         <tr>
           <td><%= task.title %></td>
-          <td><%= button_to "ボタン" {controller: 'tasks', action: 'get_started_day'}, :task.id => task.id %></td>
+          <td><%= button_to "〇", {controller: 'tasks', action: 'get_started_day', task_id: task.id} %></td>
           <td><%= task.started_at %></td>
           <td><%= task.planned_finished_at %></td>
-          <td><%= task.finished_at %></td>
           <td><%= task.priority %></td>
           <td><%= task.status %></td>
+          <td><%= button_to "□", {controller: 'tasks', action: 'get_finished_day', task_id: task.id} %></td>
+          <td><%= task.finished_at %></td>
           <td><%= link_to '詳細', task_path(task) %></td>
           <td><%= link_to '編集', edit_task_path(task) %></td>
           <td><%= link_to '削除', task_path(task), method: :delete %></td>

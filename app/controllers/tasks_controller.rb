@@ -37,8 +37,16 @@
     
     #パラメータでIDを渡す。button_to
     def get_started_day
-      @task = Task.find(params[:id])
+      @task = Task.find(params[:task_id])
       @task.started_at  = Time.new
+      @task.save
+      redirect_to tasks_path
+    end
+    
+    def get_finished_day
+      @task = Task.find(params[:task_id])
+      @task.finished_at  = Time.new
+      @task.status  = 3
       @task.save
       redirect_to tasks_path
     end
@@ -47,6 +55,6 @@
     
     private
       def task_params
-       params.require(:task).permit(:title, :description, :planned_finished_at, :priority)
+       params.require(:task).permit(:title, :description, :planned_finished_at, :priority, :status, :started_at, :finished_at)
       end
   end
