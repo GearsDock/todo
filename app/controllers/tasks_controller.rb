@@ -12,7 +12,6 @@
     @task = Task.find(params[:id])
     end
     
-    
 
     def create
       @task = Task.create(task_params)
@@ -45,16 +44,38 @@
     
     def get_finished_day
       @task = Task.find(params[:task_id])
-      @task.finished_at  = Time.new
-      @task.status  = 3
-      @task.save
+      @task.update!(finished_at: Time.new, status: :finished)
       redirect_to tasks_path
     end
     
     
+    def order_tasks_asc
+      @tasks = Task.all.order(title: "ASC")
+      render template: "tasks/index"
+    end
+    
+    def order_tasks_desc
+      @tasks = Task.all.order(title: "DESC")
+      render template: "tasks/index"
+    end
+    
+    def search
+        @tasks = Task.search(params[:q])
+        render "index"
+    end
+    
+    
+    
     
     private
+    
       def task_params
-       params.require(:task).permit(:title, :description, :planned_finished_at, :priority, :status, :started_at, :finished_at)
+       params.require(:task).permit(:title, :description, :planned_finished_at, :priority, :status, :started_at)
       end
+      
+      
+      
+      
+      
+      
   end

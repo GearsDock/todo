@@ -12,8 +12,6 @@
     <div><%= f.select :priority, Task.priorities.keys.to_a, {} %></div> 
     <div><%= f.label :ステータス %></div>
     <div><%= f.select :status, Task.statuses.keys.to_a, {} %></div>
-    <div><%= f.label :作業終了日 %></div>
-    <div><%= f.date_select :finished_at, {:use_month_numbers => true} %></div> 
     <div><%= f.submit %></div>
   <% end %>
   <%= link_to '戻る', tasks_path %>
