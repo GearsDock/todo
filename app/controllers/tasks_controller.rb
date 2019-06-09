@@ -1,11 +1,14 @@
   class TasksController < ApplicationController
     def index
-      @tasks = Task.all
+      if logged_in?
+       @tasks = current_user.tasks
+      end
     end
  
   
     def new
        @task = Task.new
+       @user_id = params[:user_id]
     end
     
     def show
@@ -14,7 +17,8 @@
     
 
     def create
-      @task = Task.create(task_params)
+      @task = current_user.tasks.new(task_params)
+      @task.save
       redirect_to tasks_path
     end
     
@@ -59,6 +63,36 @@
       render template: "tasks/index"
     end
     
+    def order_planned_finished_at_asc
+      @tasks = Task.all.order(planned_finished_at: "ASC")
+      render template: "tasks/index"
+    end
+    
+    def order_planned_finished_at_desc
+      @tasks = Task.all.order(planned_finished_at: "DESC")
+      render template: "tasks/index"
+    end
+    
+    def order_priority_asc
+      @tasks = Task.all.order(priority: "ASC")
+      render template: "tasks/index"
+    end
+    
+    def order_priority_desc
+      @tasks = Task.all.order(priority: "DESC")
+      render template: "tasks/index"
+    end
+    
+    def order_status_asc
+      @tasks = Task.all.order(status: "ASC")
+      render template: "tasks/index"
+    end
+    
+    def order_status_desc
+      @tasks = Task.all.order(status: "DESC")
+      render template: "tasks/index"
+    end
+    
     def search
         @tasks = Task.search(params[:q])
         render "index"
@@ -70,12 +104,9 @@
     private
     
       def task_params
-       params.require(:task).permit(:title, :description, :planned_finished_at, :priority, :status, :started_at)
+       params.require(:task).permit(:title, :description, :planned_finished_at,
+       :priority, :status, :started_at, :user_id)
       end
       
-      
-      
-      
-      
-      
+ 
   end

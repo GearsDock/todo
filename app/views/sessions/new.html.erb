@@ -1,0 +1,12 @@
+  <%= form_for :session, url: login_path do |f| %>
+    <div>
+    <%= f.label :email  %>
+    <%= f.text_field :email %>
+    </div>
+    <div>
+    <%= f.label :password, class: "text-white" %>
+    <%= f.password_field :password %>
+    </div>
+
+    <%= f.submit "ログイン" %>
+    <% end %>

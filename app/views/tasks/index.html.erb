@@ -1,3 +1,11 @@
+  <% unless logged_in? %>
+  <div><%= link_to 'Log in', login_path %></div>
+  <div>初めての方</div>
+  <div><%= link_to 'Sign up', new_user_path %></div>
+  <% end %>
+
+  
+  <% if logged_in? %>
   <h1>タスク一覧</h1>
   
   <%= form_tag :search_tasks, method: :get, class: "search" do %>
@@ -14,8 +22,14 @@
         <th>開始</th>
         <th>作業開始日</th>
         <th>作業終了予定日</th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_planned_finished_at_asc'} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_planned_finished_at_desc'} %></th>
         <th>優先度</th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_priority_asc'} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_priority_desc'} %></th>
         <th>ステータス</th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_status_asc'} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_status_desc'} %></th>
         <th>終了</th>
         <th>作業終了日</th>
         <th></th>
@@ -32,8 +46,14 @@
           <td><%= button_to "〇", {controller: 'tasks', action: 'get_started_day', task_id: task.id} %></td>
           <td><%= task.started_at %></td>
           <td><%= task.planned_finished_at %></td>
+          <td></td>
+          <td></td>
           <td><%= task.priority %></td>
+          <td></td>
+          <td></td>
           <td><%= task.status %></td>
+          <td></td>
+          <td></td>
           <td><%= button_to "□", {controller: 'tasks', action: 'get_finished_day', task_id: task.id} %></td>
           <td><%= task.finished_at %></td>
           <td><%= link_to '詳細', task_path(task) %></td>
@@ -43,5 +63,8 @@
         <% end %>
     </tbody>
   </table>
-  <%= link_to '追加', new_task_path %>
-  
+    <div><%= link_to '追加', new_task_path %></div>
+    <%= link_to logout_path, method: :delete do %>
+    <%= "ログアウト" %>
+    <% end %>
+  <% end %>
