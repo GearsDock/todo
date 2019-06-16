@@ -8,7 +8,6 @@
       <div><%= f.date_select :planned_finished_at, {:use_month_numbers => true} %></div>      
       <div><%= f.label :優先度 %></div>
       <div><%= f.select :priority, Task.priorities.keys.to_a, {} %></div> 
-      <%= f.hidden_field :user_id, :value => current_user %>
       <div><%= f.submit %></div>
     <% end %>
     <%= link_to '戻る', tasks_path %>

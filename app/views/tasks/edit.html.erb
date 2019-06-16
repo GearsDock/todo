@@ -1,17 +1,13 @@
   <h1>タスク編集</h1>
   <%= form_for(@task) do |f| %>
-    <div><%= f.label :title %></div>
+    <div><%= f.label :タスク名 %></div>
     <div><%= f.text_field :title %></div> 
-    <div><%= f.label :description %></div>
+    <div><%= f.label :内容 %></div>
     <div><%= f.text_field :description %></div>  
-    <div><%= f.label :作業開始日 %></div>
-    <div><%= f.date_select :started_at, {:use_month_numbers => true} %></div> 
-    <div><%= f.label :作業終了予定日 %></div>
-    <div><%= f.date_select :planned_finished_at, {:use_month_numbers => true} %></div>      
     <div><%= f.label :優先度 %></div>
-    <div><%= f.select :priority, Task.priorities.keys.to_a, {} %></div> 
+    <div><%= f.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]} %></div> 
     <div><%= f.label :ステータス %></div>
-    <div><%= f.select :status, Task.statuses.keys.to_a, {} %></div>
+    <div><%= f.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}%></div>
     <div><%= f.submit %></div>
   <% end %>
   <%= link_to '戻る', tasks_path %>

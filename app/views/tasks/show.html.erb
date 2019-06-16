@@ -1,8 +1,6 @@
   <h1>タスク詳細</h1>
-  <%= form_for(@task) do |f| %>
-    <div><%= f.label :title %></div>
-    <div><%= f.text_field :title %></div> 
-    <div><%= f.label :description %></div>
-    <div><%= f.text_field :description%></div>     
-  <% end %>
+    <div>【タスク名】</div>
+    <div><%= @task.title %></div> 
+    <div>【内容】</div>
+    <div><%= @task.description %></div>     
   <%= link_to '戻る', tasks_path %>

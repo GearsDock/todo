@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      task:
+    attributes:
+      task:
+        priority:
+        status:
+  enums:
+    task:
+      priority:
+       low: 低
+       high: 高
+      status:
+       undo: 未着手
+       doing: 実行中
+       finished: 完了

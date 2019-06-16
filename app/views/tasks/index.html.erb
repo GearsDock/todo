@@ -11,25 +11,26 @@
   <%= form_tag :search_tasks, method: :get, class: "search" do %>
     <%= text_field_tag "q", params[:q] %>
     <%= submit_tag "検索" %>
+    
   <% end %>
   
   <table>
     <thead>
       <tr>
         <th>タスク名</th>
-        <th><%= button_to "▲", {controller: 'tasks', action: 'order_tasks_asc'} %></th>
-        <th><%= button_to "▼", {controller: 'tasks', action: 'order_tasks_desc'} %></th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'title', order: 'ASC'}} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'title', order: 'DESC'}} %></th>
         <th>開始</th>
         <th>作業開始日</th>
         <th>作業終了予定日</th>
-        <th><%= button_to "▲", {controller: 'tasks', action: 'order_planned_finished_at_asc'} %></th>
-        <th><%= button_to "▼", {controller: 'tasks', action: 'order_planned_finished_at_desc'} %></th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'planned_finished_at', order: 'ASC'}} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'planned_finished_at', order: 'DESC'}} %></th>
         <th>優先度</th>
-        <th><%= button_to "▲", {controller: 'tasks', action: 'order_priority_asc'} %></th>
-        <th><%= button_to "▼", {controller: 'tasks', action: 'order_priority_desc'} %></th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'priority', order: 'ASC'}} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'priority', order: 'DESC'}} %></th>
         <th>ステータス</th>
-        <th><%= button_to "▲", {controller: 'tasks', action: 'order_status_asc'} %></th>
-        <th><%= button_to "▼", {controller: 'tasks', action: 'order_status_desc'} %></th>
+        <th><%= button_to "▲", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'status', order: 'ASC'}} %></th>
+        <th><%= button_to "▼", {controller: 'tasks', action: 'order_tasks'}, {method: :post, params: {column: 'status', order: 'DESC'}} %></th>
         <th>終了</th>
         <th>作業終了日</th>
         <th></th>
@@ -48,10 +49,10 @@
           <td><%= task.planned_finished_at %></td>
           <td></td>
           <td></td>
-          <td><%= task.priority %></td>
+          <td><%= task.priority_i18n %></td>
           <td></td>
           <td></td>
-          <td><%= task.status %></td>
+          <td><%= task.status_i18n %></td>
           <td></td>
           <td></td>
           <td><%= button_to "□", {controller: 'tasks', action: 'get_finished_day', task_id: task.id} %></td>
